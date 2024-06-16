@@ -2,19 +2,23 @@
 using Core.CrossCuttingConcerns.Logging;
 using Core.Utilities.Interceptors;
 using Serilog;
+using System.Collections.Generic;
 
 namespace Core.Aspects.Autofac.Logging
 {
     public class LogAspect : MethodInterception
     {
-        public LogAspect(CrossCuttingConcerns.Logging.Serilog.Loggers.LoggerServiceBase loggerServiceBase)
+        private readonly ILogger _logger;
+
+        public LogAspect(ILogger logger)
         {
+            _logger = logger;
         }
 
         protected override void OnBefore(IInvocation invocation)
         {
             var logDetail = GetLogDetail(invocation);
-            Log.Information(logDetail.ToString());
+            _logger.Information(logDetail.ToString());
         }
 
         private LogDetail GetLogDetail(IInvocation invocation)
@@ -26,7 +30,7 @@ namespace Core.Aspects.Autofac.Logging
                 {
                     Name = invocation.GetConcreteMethod().GetParameters()[i].Name,
                     Value = invocation.Arguments[i],
-                    Type = invocation.Arguments[i].GetType().Name
+                    Type = invocation.Arguments[i]?.GetType().Name ?? "null"
                 });
             }
 

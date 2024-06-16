@@ -2,7 +2,7 @@
 using Core.Aspects.Autofac.Exception;
 using Core.Aspects.Autofac.Logging;
 using Core.Aspects.Autofac.Performance;
-using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
+using Core.CrossCuttingConcerns.Logging.Serilog.Loggers;
 using Serilog;
 using Serilog.Sinks.MSSqlServer;
 using System.Reflection;
@@ -17,13 +17,12 @@ namespace Core.Utilities.Interceptors
             var methodAttributes = method.GetCustomAttributes<MethodInterceptionBaseAttribute>(true);
             classAttributes.AddRange(methodAttributes);
 
-            // Varsayılan olarak tüm metodlar için eklemek istediğiniz aspect'ler
             classAttributes.Add(new ExceptionLogAspect(typeof(FileLogger)));
             classAttributes.Add(new PerformanceAspect(5));
 
             ConfigureSerilog();
 
-            var logInterceptor = new LogAspect(new SerilogLogger());
+            var logInterceptor = new LogAspect(Log.Logger);
             classAttributes.Add(logInterceptor);
 
             return classAttributes.OrderBy(x => x.Priority).ToArray();
