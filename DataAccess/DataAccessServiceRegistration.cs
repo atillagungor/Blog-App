@@ -10,10 +10,13 @@ public static class DataAccessServiceRegistration
 {
     public static IServiceCollection AddDataAccessServices(this IServiceCollection services, IConfiguration configuration)
     {
-        
 
-        services.AddDbContext<BlogContext>(options => options.UseSqlServer(configuration.GetConnectionString("BlogContext"))); 
-        
+#if _WINDOWS
+        services.AddDbContext<TobetoPlatformContext>(options => options.UseSqlServer(configuration.GetConnectionString("TobetoPlatform")));
+#else
+        services.AddDbContext<BlogContext>(options => options.UseSqlServer(configuration.GetConnectionString("BlogDb")));
+#endif
+
         services.AddScoped<IUserDal, EfUserDal>();
         services.AddScoped<IOperationClaimDal, EfOperationClaimDal>();
         services.AddScoped<IUserOperationClaimDal, EfUserOperationClaimDal>();

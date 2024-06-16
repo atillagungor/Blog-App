@@ -31,6 +31,7 @@ public class AuthManager : IAuthService
 	{		
 		return await _authbusinessRules.UserToCheck(loginRequest);
 	}
+
 	[ValidationAspect(typeof(RegisterValidator))]
 	public async Task<IUser> Register(RegisterRequest registerRequest)
 	{

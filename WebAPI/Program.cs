@@ -17,25 +17,30 @@ internal class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
+        // Serilog yapýlandýrmasý
         Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Debug()
-            .WriteTo.File(@"C:\Logs\log.txt", rollingInterval: RollingInterval.Day)
+            .WriteTo.File(@"C:\Logs\log.txt")
             .CreateLogger();
 
-        builder.Host.UseSerilog();
+        // Mevcut log saðlayýcýlarý temizleme ve Serilog'u ekleme
+        builder.Host.UseSerilog((context, services, configuration) => configuration
+            .ReadFrom.Configuration(context.Configuration)
+            .ReadFrom.Services(services)
+            .WriteTo.File(@"C:\Logs\log.txt"));
 
+        // Add services to the container.
         builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
         builder.Host.ConfigureContainer<ContainerBuilder>(myBuilder => myBuilder.RegisterModule(new AutofacBusinessModule()));
 
         builder.Services.AddCors(options =>
         {
             options.AddPolicy("myPolicy",
-            policyBuilder =>
+            builder =>
             {
-                policyBuilder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
             });
         });
-
         builder.Services.AddControllers();
         builder.Services.AddCoreServices();
         builder.Services.AddBusinessServices();
@@ -58,6 +63,7 @@ internal class Program
                 };
             });
 
+        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen(setup =>
         {
@@ -87,6 +93,7 @@ internal class Program
 
         var app = builder.Build();
 
+        // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
@@ -94,11 +101,17 @@ internal class Program
         }
 
         app.UseHttpsRedirection();
+
         app.UseCors("myPolicy");
+
         app.UseAuthentication();
+
         app.UseAuthorization();
+
         app.ConfigureCustomExceptionMiddleware();
+
         app.MapControllers();
+
         app.Run();
     }
 }

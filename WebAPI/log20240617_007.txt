@@ -1,0 +1,20 @@
+2024-06-17 02:22:41.304 +03:00 [INF] Method: CreateAccessToken
+Parameters:
+- user: Entities.Concretes.User (User)
+
+2024-06-17 02:22:41.312 +03:00 [INF] Before invocation of GetClaims
+2024-06-17 02:22:41.384 +03:00 [INF] Invocation of GetClaims completed successfully.
+2024-06-17 02:22:41.384 +03:00 [INF] Invocation of GetClaims completed successfully.
+2024-06-17 02:22:41.384 +03:00 [INF] After invocation of GetClaims
+2024-06-17 02:22:41.410 +03:00 [INF] Invocation of CreateAccessToken completed successfully.
+2024-06-17 02:22:41.410 +03:00 [INF] After invocation of CreateAccessToken
+2024-06-17 02:23:02.901 +03:00 [INF] Method: CreateAccessToken
+Parameters:
+- user: Entities.Concretes.User (User)
+
+2024-06-17 02:23:02.901 +03:00 [INF] Before invocation of GetClaims
+2024-06-17 02:23:02.905 +03:00 [INF] Invocation of GetClaims completed successfully.
+2024-06-17 02:23:02.905 +03:00 [INF] Invocation of GetClaims completed successfully.
+2024-06-17 02:23:02.906 +03:00 [INF] After invocation of GetClaims
+2024-06-17 02:23:02.906 +03:00 [INF] Invocation of CreateAccessToken completed successfully.
+2024-06-17 02:23:02.906 +03:00 [INF] After invocation of CreateAccessToken

@@ -15,7 +15,7 @@ public class HttpExceptionHandler : ExceptionHandler
     protected override Task HandleException(BusinessException businessException)
     {
         Response.StatusCode = StatusCodes.Status400BadRequest;
-        string details = new BusinessProblemDetails(businessException.Message,businessException.Title).AsJson();
+        string details = new BusinessProblemDetails(businessException.Message, businessException.Title).AsJson();
         return Response.WriteAsync(details);
     }
 

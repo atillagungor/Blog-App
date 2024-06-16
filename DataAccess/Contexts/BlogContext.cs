@@ -1,27 +1,31 @@
 ﻿using Entities.Concretes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-
 using System.Reflection;
 
-namespace DataAccess.Contexts;
-
-public class BlogContext:DbContext
+namespace DataAccess.Contexts
 {
-    protected IConfiguration Configuration { get; set; }
-
-    public DbSet<User> Users { get; set; }
-    public DbSet<OperationClaim> OperationClaims { get; set; }
-    public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
-
-    public BlogContext(DbContextOptions options, IConfiguration configuration):base(options)
+    public class BlogContext : DbContext
     {
-        Configuration = configuration;
-        Database.EnsureCreated();
-    }
+        protected IConfiguration Configuration { get; }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        public DbSet<User> Users { get; set; }
+        public DbSet<OperationClaim> OperationClaims { get; set; }
+        public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
+
+        public BlogContext(DbContextOptions options, IConfiguration configuration) : base(options)
+        {
+            Configuration = configuration;
+            Database.EnsureCreated();
+        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer("Server=ATILLA;Database=BlogDb;integrated security=true;Trusted_Connection=True;TrustServerCertificate=True");
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        }
     }
 }

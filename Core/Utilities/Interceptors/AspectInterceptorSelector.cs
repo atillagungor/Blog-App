@@ -32,7 +32,7 @@ namespace Core.Utilities.Interceptors
         {
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Information()
-                .WriteTo.MSSqlServer(connectionString: "Server=ATILLA; Database=BlogSiteDb; Trusted_Connection=True; Encrypt=True; TrustServerCertificate=True;",
+                .WriteTo.MSSqlServer(connectionString: "Server=ATILLA; Database=BlogDb; Trusted_Connection=True; Encrypt=True; TrustServerCertificate=True;",
                     sinkOptions: new MSSqlServerSinkOptions
                     {
                         AutoCreateSqlTable = true,

@@ -1,0 +1,15 @@
+2024-06-17 02:22:41.091 +03:00 [INF] Method: AddAsync
+Parameters:
+- createUserRequest: Business.Dtos.Requests.User.CreateUserRequest (CreateUserRequest)
+
+2024-06-17 02:22:41.288 +03:00 [INF] Invocation of AddAsync completed successfully.
+2024-06-17 02:22:41.288 +03:00 [INF] After invocation of AddAsync
+2024-06-17 02:22:41.296 +03:00 [INF] User added: {"FirstName":"string","LastName":"string","Email":"string","UserName":"string","PasswordHash":"E1AC2ABD6C7AC21CDE2728F99E0AFA52D42193B8488D9617D1D0E5E4548B903CE324E4423482F5D6AAE93C8239EC22F66440D122398C810543695B96C3109BE0","PasswordSalt":"E19CDFD40E0EDF4C82A2B72B270F8DCB0572D53D7BE70B878D41B17599F8ED934DEE0D7DC87D83D2991B4429333F41D4E80DF2E652A0640323E6EA077126B48EA81509E64200009573678202E43B762A4E20FC9226F4EC84B93F8CC90864407C0297BF83FE9F4DABE739FA23E26771E15E9A0552C85AC292EB36B13A094DC8BE","$type":"CreateUserRequest"}
+2024-06-17 02:22:41.304 +03:00 [INF] Before invocation of CreateAccessToken
+2024-06-17 02:22:41.410 +03:00 [INF] Invocation of CreateAccessToken completed successfully.
+2024-06-17 02:22:41.410 +03:00 [INF] Invocation of CreateAccessToken completed successfully.
+2024-06-17 02:22:41.410 +03:00 [INF] After invocation of CreateAccessToken
+2024-06-17 02:23:02.901 +03:00 [INF] Before invocation of CreateAccessToken
+2024-06-17 02:23:02.906 +03:00 [INF] Invocation of CreateAccessToken completed successfully.
+2024-06-17 02:23:02.906 +03:00 [INF] Invocation of CreateAccessToken completed successfully.
+2024-06-17 02:23:02.906 +03:00 [INF] After invocation of CreateAccessToken

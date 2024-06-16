@@ -1,0 +1,30 @@
+2024-06-17 02:22:41.312 +03:00 [INF] Method: GetClaims
+Parameters:
+- user: Entities.Concretes.User (User)
+
+2024-06-17 02:22:41.384 +03:00 [INF] Invocation of GetClaims completed successfully.
+2024-06-17 02:22:41.384 +03:00 [INF] After invocation of GetClaims
+2024-06-17 02:22:41.419 +03:00 [INF] Executing OkObjectResult, writing value of type 'Core.Utilities.Security.Jwt.AccessToken'.
+2024-06-17 02:23:02.859 +03:00 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenMalformedException: IDX14100: JWT is not well formed, there are no dots (.).
+The token needs to be in JWS or JWE Compact Serialization Format. (JWS): 'EncodedHeader.EncodedPayload.EncodedSignature'. (JWE): 'EncodedProtectedHeader.EncodedEncryptedKey.EncodedInitializationVector.EncodedCiphertext.EncodedAuthenticationTag'.
+ ---> Microsoft.IdentityModel.Tokens.SecurityTokenMalformedException: IDX14121: JWT is not a well formed JWE, there must be four dots (.).
+The token needs to be in JWS or JWE Compact Serialization Format. (JWS): 'EncodedHeader.EncodedPayload.EncodedSignature'. (JWE): 'EncodedProtectedHeader.EncodedEncryptedKey.EncodedInitializationVector.EncodedCiphertext.EncodedAuthenticationTag'.
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.ReadToken(ReadOnlyMemory`1 encodedTokenMemory)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebToken..ctor(String jwtEncodedString)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ReadToken(String token, TokenValidationParameters validationParameters)
+   --- End of inner exception stack trace ---
+2024-06-17 02:23:02.865 +03:00 [INF] Bearer was not authenticated. Failure message: IDX14100: JWT is not well formed, there are no dots (.).
+The token needs to be in JWS or JWE Compact Serialization Format. (JWS): 'EncodedHeader.EncodedPayload.EncodedSignature'. (JWE): 'EncodedProtectedHeader.EncodedEncryptedKey.EncodedInitializationVector.EncodedCiphertext.EncodedAuthenticationTag'.
+2024-06-17 02:23:02.875 +03:00 [INF] Before invocation of Login
+2024-06-17 02:23:02.891 +03:00 [INF] Invocation of Login completed successfully.
+2024-06-17 02:23:02.891 +03:00 [INF] Invocation of Login completed successfully.
+2024-06-17 02:23:02.891 +03:00 [INF] After invocation of Login
+2024-06-17 02:23:02.901 +03:00 [INF] Method: GetClaims
+Parameters:
+- user: Entities.Concretes.User (User)
+
+2024-06-17 02:23:02.905 +03:00 [INF] Invocation of GetClaims completed successfully.
+2024-06-17 02:23:02.905 +03:00 [INF] After invocation of GetClaims
+2024-06-17 02:23:02.907 +03:00 [INF] Executing OkObjectResult, writing value of type 'Core.Utilities.Security.Jwt.AccessToken'.
+2024-06-17 02:23:16.753 +03:00 [INF] Executing OkObjectResult, writing value of type 'Business.Dtos.Responses.User.GetByMailUserResponse'.

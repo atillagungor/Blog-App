@@ -1,0 +1,19 @@
+2024-06-17 02:22:40.737 +03:00 [INF] Method: GetByMailAsync
+Parameters:
+- mail: string (String)
+- withDeleted: True (Boolean)
+
+2024-06-17 02:22:41.056 +03:00 [INF] Invocation of GetByMailAsync completed successfully.
+2024-06-17 02:22:41.056 +03:00 [INF] After invocation of GetByMailAsync
+2024-06-17 02:22:41.077 +03:00 [INF] User retrieved by email: string
+2024-06-17 02:22:41.091 +03:00 [INF] Before invocation of AddAsync
+2024-06-17 02:22:41.288 +03:00 [INF] Invocation of AddAsync completed successfully.
+2024-06-17 02:22:41.288 +03:00 [INF] Invocation of AddAsync completed successfully.
+2024-06-17 02:22:41.288 +03:00 [INF] After invocation of AddAsync
+2024-06-17 02:23:02.883 +03:00 [INF] Method: GetByMailAsync
+Parameters:
+- mail: string (String)
+- withDeleted: False (Boolean)
+
+2024-06-17 02:23:02.891 +03:00 [INF] Invocation of GetByMailAsync completed successfully.
+2024-06-17 02:23:02.891 +03:00 [INF] After invocation of GetByMailAsync
