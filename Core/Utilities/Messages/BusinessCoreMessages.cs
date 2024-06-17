@@ -3,5 +3,5 @@ public static class BusinessCoreMessages
 {
 	public static string CannotFindEntityError = "Can not Find Entity Error";
 	public static string WrongLoggerType = "Wrong Logger Type";
-	public static string AccessDenied = "Access Denied";
+	public static string AccessDenied = "Erişim engellendi.";
 }

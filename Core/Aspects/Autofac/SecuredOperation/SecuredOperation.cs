@@ -4,37 +4,30 @@ using Core.Utilities.Interceptors;
 using Core.Utilities.Messages;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Linq;
 
-namespace Core.Aspects.Autofac.SecuredOperation
+namespace Core.Aspects.Autofac.SecuredOperation;
+public class SecuredOperation : MethodInterception
 {
-    public class SecuredOperation : MethodInterception
-    {
-        private readonly string[] _roles;
-        private readonly IHttpContextAccessor _httpContextAccessor;
+	private string[] _roles;
+	private IHttpContextAccessor _httpContextAccessor;
 
-        public SecuredOperation(string roles)
-        {
-            _roles = roles.Split(',');
-            // IHttpContextAccessor'ı ServiceTool üzerinden alır
-            _httpContextAccessor = ServiceTool.ServiceProvider.GetService<IHttpContextAccessor>()
-                ?? throw new ArgumentNullException(nameof(IServiceProvider), "IHttpContextAccessor could not be resolved.");
-        }
+	public SecuredOperation(string roles)
+	{
+		_roles = roles.Split(',');
+		_httpContextAccessor = CoreServiceRegistration.ServiceProvider.GetService<IHttpContextAccessor>();
 
-        protected override void OnBefore(IInvocation invocation)
-        {
-            var roleClaims = _httpContextAccessor.HttpContext.User.ClaimRoles();
+	}
 
-            if (!roleClaims.Intersect(_roles).Any())
-            {
-                throw new System.Exception(AspectMessages.AccessDenied);
-            }
-        }
-    }
-
-    public static class ServiceTool
-    {
-        public static IServiceProvider ServiceProvider { get; set; }
-    }
+	protected override void OnBefore(IInvocation invocation)
+	{
+		var roleClaims = _httpContextAccessor.HttpContext.User.ClaimRoles();
+		foreach (var role in _roles)
+		{
+			if (roleClaims.Contains(role))
+			{
+				return;
+			}
+		}
+		throw new System.Exception(AspectMessages.AccessDenied);
+	}
 }

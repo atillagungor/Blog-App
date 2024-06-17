@@ -1,7 +1,0 @@
-2024-06-17 02:23:16.739 +03:00 [INF] Method: GetByMailUserAsync
-Parameters:
-- mail: string (String)
-
-2024-06-17 02:23:16.748 +03:00 [INF] Invocation of GetByMailUserAsync completed successfully.
-2024-06-17 02:23:16.749 +03:00 [INF] After invocation of GetByMailUserAsync
-2024-06-17 02:23:16.751 +03:00 [INF] User retrieved by mail: string

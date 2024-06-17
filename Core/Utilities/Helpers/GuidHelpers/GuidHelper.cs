@@ -1,28 +1,9 @@
-using System;
+namespace Core.Utilities.Helpers.GuidHelpers;
 
-namespace Core.Utilities.Helpers.GuidHelpers
+public class GuidHelper
 {
-    /// <summary>
-    /// Helper class for generating and manipulating GUIDs.
-    /// </summary>
-    public static class GuidHelper
+    public static string CreateGuid()
     {
-        /// <summary>
-        /// Generates a new GUID as a string.
-        /// </summary>
-        /// <returns>A new GUID string.</returns>
-        public static string CreateGuid()
-        {
-            return Guid.NewGuid().ToString();
-        }
-
-        /// <summary>
-        /// Generates a new sequential GUID as a string.
-        /// </summary>
-        /// <returns>A new sequential GUID string.</returns>
-        public static string CreateSequentialGuid()
-        {
-            return Guid.NewGuid().ToString("N");
-        }
+        return Guid.NewGuid().ToString();
     }
 }

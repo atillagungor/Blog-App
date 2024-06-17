@@ -21,7 +21,7 @@ where TEntity : Entity<TEntityId>
         Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
         int index = 0,
         int size = 10,
-        bool withDeleted = false,
+        bool withDeleted = false, //silinenlerde gelsin mi
         bool enableTracking = true
     );
 

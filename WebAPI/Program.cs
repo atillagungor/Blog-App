@@ -3,7 +3,7 @@ using Autofac.Extensions.DependencyInjection;
 using Business;
 using Core;
 using Core.CrossCuttingConcerns.Exceptions.Extensions;
-using Core.Utilities.Security.Encryption;
+using Core.Utilities.Security.Encyption;
 using Core.Utilities.Security.Jwt;
 using DataAccess;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -17,19 +17,16 @@ internal class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        // Serilog yapýlandýrmasý
         Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Debug()
             .WriteTo.File(@"C:\Logs\log.txt")
             .CreateLogger();
 
-        // Mevcut log saðlayýcýlarý temizleme ve Serilog'u ekleme
         builder.Host.UseSerilog((context, services, configuration) => configuration
             .ReadFrom.Configuration(context.Configuration)
             .ReadFrom.Services(services)
             .WriteTo.File(@"C:\Logs\log.txt"));
 
-        // Add services to the container.
         builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
         builder.Host.ConfigureContainer<ContainerBuilder>(myBuilder => myBuilder.RegisterModule(new AutofacBusinessModule()));
 
@@ -93,7 +90,6 @@ internal class Program
 
         var app = builder.Build();
 
-        // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();

@@ -1,43 +1,42 @@
 ﻿using Castle.DynamicProxy;
 using Core.CrossCuttingConcerns.Caching;
 using Core.Utilities.Interceptors;
-using Newtonsoft.Json;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace Core.Aspects.Autofac.Caching
+namespace Core.Aspects.Autofac.Caching;
+public class CacheAspect : MethodInterception
 {
-    public class CacheAspect : MethodInterception
-    {
-        private readonly int _duration;
-        private readonly ICacheManager _cacheManager;
+	private int _duration;
+	private ICacheManager _cacheManager;
 
-        public CacheAspect(ICacheManager cacheManager, int duration = 60)
-        {
-            _cacheManager = cacheManager ?? throw new ArgumentNullException(nameof(cacheManager));
-            _duration = duration;
-        }
+	public CacheAspect(int duration = 60)
+	{
+		_duration = duration;			
+		_cacheManager = CoreServiceRegistration.ServiceProvider.GetService<ICacheManager>();
+	}
 
-        public override void Intercept(IInvocation invocation)
-        {
-            var methodName = $"{invocation.Method.ReflectedType.FullName}.{invocation.Method.Name}";
-            var arguments = invocation.Arguments.ToList();
-
-            var key = GenerateCacheKey(methodName, arguments);
-
-            if (_cacheManager.IsAdd(key))
+	public override void Intercept(IInvocation invocation)
+	{
+		var methodName = string.Format($"{invocation.Method.ReflectedType.FullName}.{invocation.Method.Name}");
+		var arguments = invocation.Arguments.ToList();
+		Dictionary<string, string> values = new();
+		foreach (var argument in arguments)
+		{			
+			var argProperties = argument.GetType().GetProperties()
+	.ToDictionary(p => p.Name, p => p.GetValue(argument)?.ToString() ?? "<Null>");
+            foreach (var item in argProperties)
             {
-                invocation.ReturnValue = _cacheManager.Get(key);
-                return;
+				values.Add(item.Key,item.Value);
             }
-
-            invocation.Proceed();
-            _cacheManager.Add(key, invocation.ReturnValue, _duration);
         }
-
-        private string GenerateCacheKey(string methodName, List<object> arguments)
-        {
-            var argList = arguments.Select(arg => JsonConvert.SerializeObject(arg) ?? "<Null>").ToList();
-            var key = $"{methodName}({string.Join(",", argList)})";
-            return key;
-        }
-    }
+		
+		var key = $"{methodName}({string.Join(",", arguments.Select(x => x?.ToString() ?? "<Null>"))})({string.Join(",", values.Select(x => x.ToString() ?? "<Null>"))})";
+		if (_cacheManager.IsAdd(key))
+		{
+			invocation.ReturnValue = _cacheManager.Get(key);
+			return;
+		}
+		invocation.Proceed();
+		_cacheManager.Add(key, invocation.ReturnValue, _duration);
+	}
 }

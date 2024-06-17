@@ -1,57 +1,51 @@
 ﻿using Serilog;
-using Serilog.Core;
+using Serilog.Events;
 
 namespace Core.CrossCuttingConcerns.Logging.Serilog.Loggers
 {
-    public abstract class LoggerServiceBase : IDisposable
+    public abstract class LoggerServiceBase
     {
-        private readonly Logger _logger;
+        protected readonly ILogger _logger;
 
-        protected LoggerServiceBase()
+        public LoggerServiceBase(ILogger logger)
         {
-            _logger = new LoggerConfiguration()
-                .MinimumLevel.Debug()
-                .WriteTo.File(@"C:\Logs\log-.txt", rollingInterval: RollingInterval.Day)
-                .CreateLogger();
+            _logger = logger;
         }
+
+        public bool IsInfoEnabled => _logger.IsEnabled(LogEventLevel.Information);
+        public bool IsDebugEnabled => _logger.IsEnabled(LogEventLevel.Debug);
+        public bool IsWarningEnabled => _logger.IsEnabled(LogEventLevel.Warning);
+        public bool IsFatalEnabled => _logger.IsEnabled(LogEventLevel.Fatal);
+        public bool IsErrorEnabled => _logger.IsEnabled(LogEventLevel.Error);
 
         public void Info(object logMessage)
         {
-            _logger.Information(logMessage.ToString());
+            if (IsInfoEnabled)
+                _logger.Information(logMessage.ToString());
         }
 
         public void Debug(object logMessage)
         {
-            _logger.Debug(logMessage.ToString());
+            if (IsDebugEnabled)
+                _logger.Debug(logMessage.ToString());
         }
 
         public void Warn(object logMessage)
         {
-            _logger.Warning(logMessage.ToString());
+            if (IsWarningEnabled)
+                _logger.Warning(logMessage.ToString());
         }
 
         public void Fatal(object logMessage)
         {
-            _logger.Fatal(logMessage.ToString());
+            if (IsFatalEnabled)
+                _logger.Fatal(logMessage.ToString());
         }
 
         public void Error(object logMessage)
         {
-            _logger.Error(logMessage.ToString());
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _logger.Dispose();
-            }
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            if (IsErrorEnabled)
+                _logger.Error(logMessage.ToString());
         }
     }
 }
