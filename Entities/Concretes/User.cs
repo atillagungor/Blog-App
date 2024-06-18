@@ -11,4 +11,7 @@ public class User : Entity<Guid>, IUser
     public byte[] PasswordSalt { get; set; }
     public byte[] PasswordHash { get; set; }
     public bool Status { get; set; }
+
+    public ICollection<Post> Posts { get; set; }
+    public ICollection<Like> Likes { get; set; }
 }

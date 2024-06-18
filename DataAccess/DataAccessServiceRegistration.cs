@@ -18,6 +18,9 @@ public static class DataAccessServiceRegistration
 #endif
 
         services.AddScoped<IUserDal, EfUserDal>();
+        services.AddScoped<IPostDal, EfPostDal>();
+        services.AddScoped<ILikeDal, EfLikeDal>();
+        services.AddScoped<ICategoryDal, EfCategoryDal>();
         services.AddScoped<IOperationClaimDal, EfOperationClaimDal>();
         services.AddScoped<IUserOperationClaimDal, EfUserOperationClaimDal>();
 
