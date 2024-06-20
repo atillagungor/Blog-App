@@ -2,8 +2,6 @@
 using Business.Dtos.Requests.Post;
 using Core.DataAccess.Paging;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Threading.Tasks;
 
 namespace WebApi.Controllers
 {
